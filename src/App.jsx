@@ -1,15 +1,21 @@
 import './App.css'
+let arreglo = [
+  { id: 1, name: "Uno" },
+  { id: 2, name: "Dos" },
+];
 
 function App() {
 
-  let arreglo = ["uno", "dos"];
-  
+  const handleDelete = (id) => {
+    console.log('DELETE', id);
+    // filter
+  };
   return (
 
     <div className="App">
 
-      <div className = "div-prueba">
-      <input type="text" id="elemento" /> 
+      <div className="div-prueba">
+        <input type="text" id="elemento" />
         <button >Agregar</button>
 
         <table>
@@ -25,20 +31,19 @@ function App() {
           </thead>
 
           <tbody>
-          
-        {arreglo.map((items, index) => (
-          <tr key={index}>
-            <td>{index}</td>
-            <td>{items}</td>
-            <td><button >Editar</button></td>
-            <td><button >Actualizar</button></td>
-            <td><button >Elminar</button></td>
-          </tr>
-         
-        ))}
-        
+
+            {arreglo.map(({ id, name }) => (
+              <tr key={id}>
+                <td>{id}</td>
+                <td>{name}</td>
+                <td><button >Editar</button></td>
+                <td><button >Actualizar</button></td>
+                <td><button onClick={() => handleDelete(id)}>Elminar</button></td>
+              </tr>
+            ))}
+
           </tbody>
-          
+
         </table>
       </div>
     </div>

@@ -1,0 +1,1 @@
+export const headers = ["Name", "Height", "Hair Color", "Skin Color"];

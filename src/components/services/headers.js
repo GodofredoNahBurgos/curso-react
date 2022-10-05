@@ -1,0 +1,1 @@
+const headers = ["ID", "NAME", "ACCIÓN", "ACCIÓN"];

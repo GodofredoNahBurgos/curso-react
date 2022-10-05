@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react";
 import "./App.css";
+import { listArray } from "./hook/services/listArray";
 
-let listArray = [
-  { id: Math.floor(Math.random() * 100), name: "Uno" },
-  { id: Math.floor(Math.random() * 100), name: "Dos" },
-  { id: Math.floor(Math.random() * 100), name: "Tres" },
-  { id: Math.floor(Math.random() * 100), name: "Cuatro" },
-];
+// let listArray = [
+//   { id: Math.floor(Math.random() * 100), name: "Uno" },
+//   { id: Math.floor(Math.random() * 100), name: "Dos" },
+//   { id: Math.floor(Math.random() * 100), name: "Tres" },
+//   { id: Math.floor(Math.random() * 100), name: "Cuatro" },
+// ];
 
 function App() {
   const [list, setList] = useState(listArray);
@@ -56,7 +57,10 @@ function App() {
     if (inputValue.value === "") {
       setError("Please enter a value");
       console.log('ERR');
-    } else {
+    }else if (inputValue.value < 0 || inputValue.value > 0 ){
+      setError("Please enter a only letters values");
+      console.log('ERR');
+    }else {
       setError("");
     }
   }, [inputValue.value]);

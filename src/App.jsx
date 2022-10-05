@@ -1,63 +1,75 @@
 import { useEffect, useState } from "react";
 import "./App.css";
 
+let listArray = [
+  { id: Math.floor(Math.random() * 100), name: "Uno" },
+  { id: Math.floor(Math.random() * 100), name: "Dos" },
+  { id: Math.floor(Math.random() * 100), name: "Tres" },
+  { id: Math.floor(Math.random() * 100), name: "Cuatro" },
+];
+
 function App() {
+  const [list, setList] = useState(listArray);
+  const [inputValue, setInputValue] = useState({ name: "", value: "" });
+  const [error, setError] = useState("");
 
-  let array = [
-    { id: 1, name: "Uno" },
-    { id: 2, name: "Dos" },
-    { id: 3, name: "Tres" },
-    { id: 4, name: "Cuatro" },
-  ];
-
-  //Eliminar
-  const [del, setDel] = useState(array);
+  const handleOnchange = (event) => {
+    const { name, value } = event.target;
+    setInputValue((prev) => ({
+      ...prev,
+      name,
+      value
+    }));
+  };
 
   const handleDelete = (id) => {
-    setDel(() => {
-      console.log("Delete", id);
-      array = array.filter((element) => {
-        return element.id !== id;
-      });
-      console.log(array);
-    });
+    setList((prev) => ([
+      ...prev.filter((item) => item.id !== id)
+    ]));
   };
-
-  //Insertar
-  const [inset, setInset] = useState(array);
 
   const handleInsert = () => {
-
-    array = array;
-    setInset(() => {
-      array.push({
-        id: array.length,
-        name: document.getElementById("elemento").value,
-      });
-      console.log(array);
-    });
+    setList((prev) => ([
+      {
+        id: Math.floor(Math.random() * 100),
+        name: inputValue.value,
+      },
+      ...prev
+    ]));
   };
-
-  //Editar
-  const [edit, setEdit] = useState(array);
 
   const handleEdit = (id) => {
-    setEdit(() => {
-      array = array.map((item) =>
-        item.id === id
-          ? { ...item, name: document.getElementById("elemento").value }
-          : item
-      );
-      console.log(array);
-    });
+    setList((prev) => ([
+      ...prev.map((item) => {
+        if (item.id === id) {
+          return {
+            ...item,
+            name: inputValue.value
+          }
+        }
+        return item;
+      })
+    ]));
   };
+
+  useEffect(() => {
+    if (inputValue.value === "") {
+      setError("Please enter a value");
+      console.log('ERR');
+    } else {
+      setError("");
+    }
+  }, [inputValue.value]);
 
   return (
     <div className="App">
       <div className="div-prueba">
-        <input type="text" id="elemento" />
-        <button onClick={() => handleInsert()}>Agregar</button>
-
+        <input type="text" name="name" onChange={handleOnchange} value={inputValue.value} />
+        <button onClick={() => handleInsert()} disabled={error !== ""} >Agregar</button>
+        {error !== "" && <>
+          <br />
+          <span style={{ color: "red" }} >{error}</span>
+        </>}
         <table>
           <thead>
             <tr>
@@ -69,7 +81,7 @@ function App() {
           </thead>
 
           <tbody>
-            {array.map((item, index) => (
+            {list.map((item, index) => (
               <tr key={index}>
                 <td>{item.id}</td>
                 <td>{item.name}</td>

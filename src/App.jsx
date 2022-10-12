@@ -3,13 +3,6 @@ import "./App.css";
 import { useArray } from "./hook/useArray";
 import { listArray } from "./services/listArray";
 
-// let listArray = [
-//   { id: Math.floor(Math.random() * 100), name: "Uno" },
-//   { id: Math.floor(Math.random() * 100), name: "Dos" },
-//   { id: Math.floor(Math.random() * 100), name: "Tres" },
-//   { id: Math.floor(Math.random() * 100), name: "Cuatro" },
-// ];
-
 function App() {
   const { array: list, set: setList, filter: filterList } = useArray(listArray);
   const [inputValue, setInputValue] = useState({ name: "", value: "" });

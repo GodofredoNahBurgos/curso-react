@@ -54,13 +54,16 @@ function App() {
   };
 
   useEffect(() => {
-    if (inputValue.value === "") {
+    const value = inputValue.value;
+    const reg = /^[a-zA-Z]*$/;
+
+    if (value === "") {
       setError("Please enter a value");
       console.log('ERR');
-    }else if (inputValue.value < 0 || inputValue.value > 0 ){
+    } else if (!reg.test(value)) {
       setError("Please enter a only letters values");
       console.log('ERR');
-    }else {
+    } else {
       setError("");
     }
   }, [inputValue.value]);

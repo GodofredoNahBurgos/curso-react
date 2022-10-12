@@ -7,9 +7,19 @@ export const useArray = (defaultValue = []) => {
         setArray((prev) => prev.filter(callback));
     }
 
+    function unshift(element) {
+        setArray((prev) => [element, ...prev]);
+    }
+
+    function map(callback) {
+        setArray((prev) => prev.map(callback));
+    }
+
     return {
         array,
         set: setArray,
-        filter
+        filter,
+        unshift,
+        map
     }
 };

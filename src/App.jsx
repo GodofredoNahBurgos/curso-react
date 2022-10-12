@@ -11,7 +11,11 @@ import { listArray } from "./services/listArray";
 // ];
 
 function App() {
-  const { array: list, set: setList, filter: filterList } = useArray(listArray);
+  const {
+    array: list,
+    set: setList,
+    filter: filterList,
+    unshift: unshiftList } = useArray(listArray);
   const [inputValue, setInputValue] = useState({ name: "", value: "" });
   const [error, setError] = useState("");
 
@@ -29,13 +33,10 @@ function App() {
   };
 
   const handleInsert = () => {
-    setList((prev) => ([
-      {
-        id: Math.floor(Math.random() * 100),
-        name: inputValue.value,
-      },
-      ...prev
-    ]));
+    unshiftList({
+      id: Math.floor(Math.random() * 100),
+      name: inputValue.value,
+    });
   };
 
   const handleEdit = (id) => {

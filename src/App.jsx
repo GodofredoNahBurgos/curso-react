@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import "./App.css";
-import { listArray } from "./hook/services/listArray";
+import { useArray } from "./hook/useArray";
+import { listArray } from "./services/listArray";
 
 // let listArray = [
 //   { id: Math.floor(Math.random() * 100), name: "Uno" },
@@ -10,7 +11,7 @@ import { listArray } from "./hook/services/listArray";
 // ];
 
 function App() {
-  const [list, setList] = useState(listArray);
+  const { array: list, set: setList, filter: filterList } = useArray(listArray);
   const [inputValue, setInputValue] = useState({ name: "", value: "" });
   const [error, setError] = useState("");
 
@@ -24,9 +25,7 @@ function App() {
   };
 
   const handleDelete = (id) => {
-    setList((prev) => ([
-      ...prev.filter((item) => item.id !== id)
-    ]));
+    filterList((item) => item.id !== id);
   };
 
   const handleInsert = () => {

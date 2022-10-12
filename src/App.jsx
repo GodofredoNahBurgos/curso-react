@@ -1,23 +1,10 @@
 import { useEffect, useState } from "react";
 import "./App.css";
-import { useArray } from "./hook/useArray";
+import { useHandleList } from "./hook/useHandleList";
 import { listArray } from "./services/listArray";
 
-// let listArray = [
-//   { id: Math.floor(Math.random() * 100), name: "Uno" },
-//   { id: Math.floor(Math.random() * 100), name: "Dos" },
-//   { id: Math.floor(Math.random() * 100), name: "Tres" },
-//   { id: Math.floor(Math.random() * 100), name: "Cuatro" },
-// ];
-
 function App() {
-  const {
-    array: list,
-    set: setList,
-    filter: filterList,
-    unshift: unshiftList,
-    map: mapList,
-  } = useArray(listArray);
+  const { list, handleInsert, handleEdit, handleDelete } = useHandleList(listArray);
   const [inputValue, setInputValue] = useState({ name: "", value: "" });
   const [error, setError] = useState("");
 
@@ -28,29 +15,6 @@ function App() {
       name,
       value
     }));
-  };
-
-  const handleDelete = (id) => {
-    filterList((item) => item.id !== id);
-  };
-
-  const handleInsert = () => {
-    unshiftList({
-      id: Math.floor(Math.random() * 100),
-      name: inputValue.value,
-    });
-  };
-
-  const handleEdit = (id) => {
-    mapList((item) => {
-      if (item.id === id) {
-        return {
-          ...item,
-          name: inputValue.value
-        }
-      }
-      return item;
-    });
   };
 
   useEffect(() => {
@@ -72,7 +36,7 @@ function App() {
     <div className="App">
       <div className="div-prueba">
         <input type="text" name="name" onChange={handleOnchange} value={inputValue.value} />
-        <button onClick={() => handleInsert()} disabled={error !== ""} >Agregar</button>
+        <button onClick={() => handleInsert(inputValue.value)} disabled={error !== ""} >Agregar</button>
         {error !== "" && <>
           <br />
           <span style={{ color: "red" }} >{error}</span>
@@ -93,7 +57,7 @@ function App() {
                 <td>{item.id}</td>
                 <td>{item.name}</td>
                 <td>
-                  <button onClick={() => handleEdit(item.id)}>Editar</button>
+                  <button onClick={() => handleEdit(item.id, inputValue.value)}>Editar</button>
                 </td>
                 <td>
                   <button onClick={() => handleDelete(item.id)}>Elminar</button>

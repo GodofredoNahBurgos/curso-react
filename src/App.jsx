@@ -15,7 +15,9 @@ function App() {
     array: list,
     set: setList,
     filter: filterList,
-    unshift: unshiftList } = useArray(listArray);
+    unshift: unshiftList,
+    map: mapList,
+  } = useArray(listArray);
   const [inputValue, setInputValue] = useState({ name: "", value: "" });
   const [error, setError] = useState("");
 
@@ -40,17 +42,15 @@ function App() {
   };
 
   const handleEdit = (id) => {
-    setList((prev) => ([
-      ...prev.map((item) => {
-        if (item.id === id) {
-          return {
-            ...item,
-            name: inputValue.value
-          }
+    mapList((item) => {
+      if (item.id === id) {
+        return {
+          ...item,
+          name: inputValue.value
         }
-        return item;
-      })
-    ]));
+      }
+      return item;
+    });
   };
 
   useEffect(() => {

@@ -11,10 +11,15 @@ export const useArray = (defaultValue = []) => {
         setArray((prev) => [element, ...prev]);
     }
 
+    function map(callback) {
+        setArray((prev) => prev.map(callback));
+    }
+
     return {
         array,
         set: setArray,
         filter,
-        unshift
+        unshift,
+        map
     }
 };

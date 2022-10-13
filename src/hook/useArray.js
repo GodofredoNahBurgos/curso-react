@@ -1,6 +1,7 @@
 import { useState } from "react";
 
 export const useArray = (defaultValue = []) => {
+    
     const [array, setArray] = useState(defaultValue);
 
     function filter(callback) {

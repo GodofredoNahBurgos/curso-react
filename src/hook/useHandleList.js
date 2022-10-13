@@ -31,11 +31,22 @@ export const useHandleList = (listArray = []) => {
     const handleDelete = (id) => {
         filterList((item) => item.id !== id);
     };
+    
+    const handleOnchange = (event) => {
+        const { name, value } = event.target;
+        setInputValue((prev) => ({
+          ...prev,
+          name,
+          value
+        }));
+
+      };
 
     return {
         list,
         handleInsert,
         handleEdit,
-        handleDelete
+        handleDelete,
+        handleOnchange
     }
 }

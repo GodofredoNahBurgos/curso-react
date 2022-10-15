@@ -28,10 +28,10 @@ export const useLoginPassword = () => {
     }else if(!reg.test(value)){
       setErrorsPassword("Please enter only alphanumeric, no special characteres");
       console.log('ERR');
-    }else if(value.length <= 8){
+    }else if(value.length < 8){
       setErrorsPassword("8 Min Characteres");
       console.log('ERR');
-    }else if(value.length >= 15){
+    }else if(value.length > 15){
       setErrorsPassword("15 Max Characteres");
       console.log('ERR');
     }else{

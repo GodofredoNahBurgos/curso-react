@@ -16,7 +16,6 @@ export const useLoginUser = () => {
   useEffect(() => {
 
     const value = inputValues.value;
-    //const reg = /^[a-zA-Z]*$/;
     const espace = /\s/;
     const numbers = /[0-9]/;
 
@@ -29,20 +28,15 @@ export const useLoginUser = () => {
     }else if(espace.test(value)){
       setErrors("Please do not enter blank spaces");
       console.log('ERR');
-    }else if(value.length <= 3){
+    }else if(value.length < 3){
       setErrors("3 Min Characteres");
       console.log('ERR');
-    }else if(value.length >= 10){
+    }else if(value.length > 10){
       setErrors("10 Max Characteres");
       console.log('ERR');
     }else{
       setErrors("");
     }
-
-    // else if (!reg.test(value)) {
-    //   setErrors("Please enter a only letters values");
-    //   console.log('ERR');
-    // }
     
   }, [inputValues.value]);
 

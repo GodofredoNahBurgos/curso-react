@@ -5,13 +5,27 @@ import { useLoginUser } from "./hook/useLoginUser";
 import { useLoginPassword } from "./hook/useLoginPassword"; 
 import { useHandleList } from "./hook/useHandleList";
 import { listArray } from "./services/listArray";
+import { dataBase } from "./services/dataBase";
 
 function App() {
   const { list, handleInsert, handleEdit, handleDelete } = useHandleList(listArray);
-
   const { inputValue, handleOnchange, error } = useError();
   const { inputValues, handleOnchanges, errors } = useLoginUser();
   const { inputValuesPassword, handleOnchangesPassword, errorsPassword } = useLoginPassword ();
+
+  const ingreso = () => {
+    let validLogin = false;
+    dataBase.forEach(element => {
+    if((element.name == inputValues.value) && (element.password == inputValuesPassword.value)){
+      validLogin = true;
+    }
+    });
+    if(validLogin == false){
+      alert("Usuario o Contraseña Incorrecta");
+    }else if(validLogin == true){
+      alert("Ingreso Correcto");
+    }
+  }
 
   return (
     <div className="App">
@@ -26,7 +40,7 @@ function App() {
         {errorsPassword !== "" && <>
           <span style={{ color: "red" }} >{errorsPassword}</span>
         </>}<br/>
-        <button>Ingresar</button><br/>
+        <button onClick={ingreso}>Ingresar</button><br/>
 
         <input type="text" name="name" onChange={handleOnchange} value={inputValue.value} />
         <button onClick={() => handleInsert(inputValue.value)} disabled={error !== ""} >Agregar</button>

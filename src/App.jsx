@@ -1,4 +1,8 @@
-import { useState } from "react";
+import '@fontsource/roboto/300.css';
+import '@fontsource/roboto/400.css';
+import '@fontsource/roboto/500.css';
+import '@fontsource/roboto/700.css';
+
 import "./App.css";
 import { useError } from "./hook/useError";
 import { useLoginUser } from "./hook/useLoginUser";  
@@ -6,6 +10,7 @@ import { useLoginPassword } from "./hook/useLoginPassword";
 import { useHandleList } from "./hook/useHandleList";
 import { listArray } from "./services/listArray";
 import { dataBase } from "./services/dataBase";
+import { Button, TextField } from '@mui/material';
 
 function App() {
   const { list, handleInsert, handleEdit, handleDelete } = useHandleList(listArray);
@@ -31,6 +36,7 @@ function App() {
     <div className="App">
       <div className="div-prueba">
         <label>Usuario: </label>
+        <TextField id="standard-basic" label="USUARIO" variant="standard" />
         <input type="text" name="user" onChange={handleOnchanges} value={inputValues.value}></input>
         {errors !== "" && <>
           <span style={{ color: "red" }} >{errors}</span>
@@ -40,9 +46,9 @@ function App() {
         {errorsPassword !== "" && <>
           <span style={{ color: "red" }} >{errorsPassword}</span>
         </>}<br/>
-        <button onClick={ingreso}>Ingresar</button><br/>
+        <Button variant="contained" onClick={ingreso}>Ingresar</Button>
 
-        <input type="text" name="name" onChange={handleOnchange} value={inputValue.value} />
+        <hr/><input type="text" name="name" onChange={handleOnchange} value={inputValue.value} />
         <button onClick={() => handleInsert(inputValue.value)} disabled={error !== ""} >Agregar</button>
         {error !== "" && <>
           <br />

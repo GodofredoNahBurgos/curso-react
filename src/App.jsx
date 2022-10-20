@@ -10,7 +10,7 @@ import { useLoginPassword } from "./hook/useLoginPassword";
 import { useHandleList } from "./hook/useHandleList";
 import { listArray } from "./services/listArray";
 import { dataBase } from "./services/dataBase";
-import { Button, TextField } from '@mui/material';
+import { Alert, Button, TextField } from '@mui/material';
 
 function App() {
   const { list, handleInsert, handleEdit, handleDelete } = useHandleList(listArray);
@@ -26,27 +26,26 @@ function App() {
     }
     });
     if(validLogin == false){
-      alert("Usuario o Contraseña Incorrecta");
+      <Alert severity="error"/>
     }else if(validLogin == true){
-      alert("Ingreso Correcto");
+      <Alert severity="success"/>
     }
   }
 
   return (
     <div className="App">
       <div className="div-prueba">
-        <label>Usuario: </label>
-        <TextField id="standard-basic" label="USUARIO" variant="standard" />
-        <input type="text" name="user" onChange={handleOnchanges} value={inputValues.value}></input>
+        <TextField name="user" onChange={handleOnchanges} value={inputValues.value} id="standard-basic" label="USUARIO" variant="standard"/>
         {errors !== "" && <>
           <span style={{ color: "red" }} >{errors}</span>
         </>}<br/>
-        <label>Contraseña: </label>
-        <input type="text" name="password" onChange={handleOnchangesPassword} value={inputValuesPassword.value}></input>
+        <TextField name="password" onChange={handleOnchangesPassword} value={inputValuesPassword.value} id="standard-basic" label="CONTRASEÑA" variant="standard"/>
         {errorsPassword !== "" && <>
           <span style={{ color: "red" }} >{errorsPassword}</span>
         </>}<br/>
-        <Button variant="contained" onClick={ingreso}>Ingresar</Button>
+        <br/><Button variant="contained" onClick={ingreso}>Ingresar</Button>
+
+
 
         <hr/><input type="text" name="name" onChange={handleOnchange} value={inputValue.value} />
         <button onClick={() => handleInsert(inputValue.value)} disabled={error !== ""} >Agregar</button>
